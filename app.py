@@ -2,12 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import random
+import os
 
 app = Flask(__name__)
 app.secret_key = 'super_secret_life_sim_key'
 
 # Setup SQLite Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///life_simulator.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///life_simulator.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
